@@ -1,6 +1,6 @@
 //
 //  main.cpp
-//  sort_easy
+//  Stack
 //
 //  Created by 김다은 on 2017. 1. 12..
 //  Copyright © 2017년 김다은. All rights reserved.
@@ -18,7 +18,7 @@ int main(void){
     stack<int> s;
     queue<char> q;
     
-   // int arr1[100000]={0,};//1 2 3 4 5 6 7 8
+    // int arr1[100000]={0,};//1 2 3 4 5 6 7 8
     int arr2[100000]={0,};//4 3 6 8 7 5 2 1
     
     for(int i = 1;i<=n;i++){
@@ -59,3 +59,4 @@ int main(void){
     
     
 }
+
