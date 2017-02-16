@@ -22,7 +22,7 @@ int main(void) {
     split( image, mv );
     
     namedWindow( "Image" );
-    imshow( "Image", mv[1] );
+    imshow( "Image", mv[2] );
     waitKey( 0 );
     return 0;
 }
