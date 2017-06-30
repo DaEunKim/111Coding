@@ -15,10 +15,9 @@ int main(void){
     string C;
     cin >> A >> B>> C;
     
-    int size = atoi(C.c_str());
-
-    for(int i = 0;i< size;i++)
+    if(atoi(&C.back())%2!=0){
         A = (A^B);
+    }
     
     cout << A <<endl;
     
