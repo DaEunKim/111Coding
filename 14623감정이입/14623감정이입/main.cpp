@@ -10,6 +10,7 @@
 #include <string>
 using namespace std;
 
+
 int times(int n){
     int sum = 1;
     for(int i = 0;i<n;i++){
@@ -23,6 +24,8 @@ int main(void){
     char B2[31];
     cin >> B1;
     cin >>B2;
+    
+    
     
     int sum = 0;
     string sum_string ;
