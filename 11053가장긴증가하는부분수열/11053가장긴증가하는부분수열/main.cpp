@@ -8,31 +8,33 @@
 
 #include <iostream>
 #include <algorithm>
-#include <set>
+#include <vector>
 using namespace std;
 
 int main(void){
     int A[1002]={0,};
     int n;
     cin >> n;
-    set<int> s;
-
+    
+    vector<int> v;
+    
     for(int i = 0;i<n;i++){
         cin >> A[i];
     }
-    sort(A, A+n);
-    for(int i = 0;i<n;i++){
-        s.insert(A[i]);
+    v.push_back(A[0]);
+    
+    
+    for(int i = 1;i<n;i++){
+        auto loc = lower_bound(v.begin(), v.end(), A[i]);
+        if (loc == v.end()){
+            v.push_back(A[i]);
+        }
+        else{
+            *loc = A[i];
+        }
     }
     
-    int cnt = 0;
-    for(std::set<int>::iterator i = s.begin(); i != s.end();i++){
-//         cout<< *i<<endl;
-        if(*i < *i+1)
-            cnt++;
-    }
-    cout<<cnt<<endl;
-    
+    cout<<v.size()<<endl;
     
     
 }
