@@ -1,8 +1,8 @@
 //
 //  main.cpp
-//  11053가장긴증가하는부분수열
+//  1365꼬인전기줄
 //
-//  Created by 김다은 on 2017. 7. 4..
+//  Created by 김다은 on 2017. 7. 9..
 //  Copyright © 2017년 김다은. All rights reserved.
 //
 
@@ -12,7 +12,7 @@
 using namespace std;
 
 int main(void){
-    int A[1000001]={0,};
+    int A[100001]={0,};
     int n;
     cin >> n;
     
@@ -34,7 +34,7 @@ int main(void){
         }
     }
     
-    cout<<v.size()<<endl;
+    cout<< n-v.size()<<endl;
     
     
 }
