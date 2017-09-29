@@ -24,7 +24,7 @@ void swap(int &a, int&b) {
 //}
 
 void selectionSort(vector<int> &v) {
-    int size = v.size();
+    unsigned long size = v.size();
     
     for (int i=0; i<size; i++) {
         int max = -1;
