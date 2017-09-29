@@ -30,7 +30,6 @@ bool check(vector<pair<unsigned int, int>> v){
     }
     return flag;
 }
-
 void monotongil(vector<pair<unsigned int, int>> v, int t){
     
     for(int i = 0;i<t;i++){
