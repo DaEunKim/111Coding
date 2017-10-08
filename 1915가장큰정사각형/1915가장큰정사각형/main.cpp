@@ -21,6 +21,7 @@ int check(int arr[][1001], int i, int j, int cnt, int n, int m){
     if(i > n && j>m && i<0 && j<0)
         return 0;
     
+    
     if(arr[i+1][j]==1 && arr[i+1][j+1]==1 && arr[i][j+1]==1){
         arr[i+1][j+1]= ++cnt;
             
