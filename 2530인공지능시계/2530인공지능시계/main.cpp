@@ -15,18 +15,28 @@ int main(void){
     int time_sec;
     cin >> time_sec;
     
-    int tmp_hour = 0, tmp_min = 0, tmp_sec = 0;
+    int tmp_sec = 0;
     
+    tmp_sec =  second + time_sec;
 
-    tmp_min = time_sec / 60;
-    tmp_sec = time_sec % 60;
+    if(tmp_sec >= 60){
+        min = min + tmp_sec / 60;
+        tmp_sec = tmp_sec % 60;
 
-    while (tmp_min > 60) {
+    }
 
-        tmp_hour = tmp_min / 60;
-        tmp_min = tmp_min % 60;
+    if(min >= 60){
+        hour = hour + min / 60;
+        min = min % 60;
+
+    }
+
+    if(hour >= 24){
+        hour = hour % 24;
+
     }
     
-    cout<< hour+ tmp_hour << " "<< min+tmp_min <<" "<<second+tmp_sec<<endl;
+
+    cout<< hour << " " << min <<" "<<tmp_sec<<endl;
     
 }
