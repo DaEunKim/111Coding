@@ -9,33 +9,26 @@
 #include <iostream>
 using namespace std;
 
-int rightSearch(int *arr, int find_value, int index, int n){
-    for(int i = index; i<n; i++){
-        if(arr[i] == find_value){
-            return i+1;
-        }
-    }
-    return *arr;
-}
-int leftSearch(int *arr, int find_value, int index, int n){
-    for(int i = 0; i<index; i++){
-        if(arr[i] == find_value){
-            return i+1;
-        }
-    }
-    return *arr;
-}
-
-int binarySearch(int find_value, int *arr,int index, int n){
+int binarySearch(int find_value, int *arr, int n){
+    int begin = 0;
+    int end = n-1;
+    int mid;
     
-    if(find_value > arr[index]){
-        return rightSearch(arr, find_value, index, n);
-    }
-    else if(find_value < arr[index]){
-        return leftSearch(arr, find_value, index, n);
-    }
-    else
-        return index;
+    do {
+        mid = (begin + end) / 2;
+        
+        if (arr[mid] == find_value)
+            return mid+1;
+        
+        if (arr[mid] > find_value)
+            end = mid - 1;
+        else
+            begin = mid + 1;
+        
+    } while(begin <= end);
+    
+    return -1;
+    
 }
 
 int main(void){
@@ -52,7 +45,7 @@ int main(void){
     int find_value;
     cin >> find_value;
     
-    cout<< binarySearch(find_value, arr, index, n)<<endl;
+    cout<< binarySearch(find_value, arr, n)<<endl;
     
     
 }
