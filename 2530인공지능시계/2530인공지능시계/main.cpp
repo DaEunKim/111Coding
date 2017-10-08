@@ -7,9 +7,26 @@
 //
 
 #include <iostream>
+using namespace std;
 
-int main(int argc, const char * argv[]) {
-    // insert code here...
-    std::cout << "Hello, World!\n";
-    return 0;
+int main(void){
+    int hour, min, second;
+    cin >> hour >> min >> second;
+    int time_sec;
+    cin >> time_sec;
+    
+    int tmp_hour = 0, tmp_min = 0, tmp_sec = 0;
+    
+
+    tmp_min = time_sec / 60;
+    tmp_sec = time_sec % 60;
+
+    while (tmp_min > 60) {
+
+        tmp_hour = tmp_min / 60;
+        tmp_min = tmp_min % 60;
+    }
+    
+    cout<< hour+ tmp_hour << " "<< min+tmp_min <<" "<<second+tmp_sec<<endl;
+    
 }
