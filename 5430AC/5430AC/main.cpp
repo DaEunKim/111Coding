@@ -9,29 +9,23 @@
 #include <iostream>
 #include <string>
 #include <deque>
-#include <queue>
+#include <algorithm>
 using namespace std;
 
-deque<char> swap(deque<char> q){
-    deque<char> tmp_q;
-    while (!q.empty()) {
-        tmp_q.push_back(q.back());
-        q.pop_back();
-    }
-    return tmp_q;
-}
-
-void print(deque<char> q)
-{
-    cout<< "[";
-
+void print(deque<char> q){
     unsigned long long q_size = q.size();
+    if(!q.empty())
+        cout<< "[";
+
     for(int i = 0;i<q_size;i++){
         if(q.front()!=' '){
+            
             cout<< q.front();
             q.pop_front();
-            if(q.empty())
+            if(q.empty()){
                 cout<< "]"<<endl;
+                break;
+            }
             else{
                 cout<< ",";
             }
@@ -74,13 +68,14 @@ int main(void){
 
         for(int i = 0;i<size;i++){
             if(arr[i]=='R'){
-                swap(q);
+                reverse(q.begin(), q.end());
             }
             else if(arr[i]=='D'){
                 q.pop_front();
             }
         }
         print(q);
+        
     }
     
 }
