@@ -8,56 +8,90 @@
 
 #include <iostream>
 #include <algorithm>
+#include <utility>
+#include <vector>
 using namespace std;
 
-int binarySearch(int N, int M, int *find_arr, int comp){
-    int left = 0 ;
-    int right = M;
-    int result=0;
-    while (left <= right){
-        int mid = (left + right) / 2;
-        if (find_arr[mid] > comp)
-            right = mid - 1;
-        else if (find_arr[mid] < comp)
-            left = mid + 1;
-        else{
-            result = mid;
-            break;
-        }
-    }
-    return result;
 
+vector<pair<int, int>> binarySearch(vector<pair<int, int>> target, vector<pair<int, int>> comparison){
+    unsigned long comp_size = comparison.size();
+    unsigned long target_size = target.size();
+
+    unsigned long left = 0 ;
+    unsigned long right = target_size;
+    unsigned long result=0;
+    vector<pair<int, int>> tmp;
+    tmp = target;
+    for(int i = 0 ;i<comp_size;i++){
+
+        while (left <= right){
+            unsigned long mid = (left + right) / 2;
+            if (target[mid].first < comparison[i].first){
+                right = mid - 1;
+//                tmp[right].first = 0;
+            }
+            else if (target[mid].first > comparison[i].first){
+                left = mid + 1;
+//                tmp[left].first = 0;
+            }
+
+            else {
+                result = mid;
+                tmp[result].first = 1;
+            }
+        }
+        if(left>right)
+            tmp[left].first = 0;
+
+
+    }
+
+
+    return tmp;
 }
 
 int main(void){
+    vector<pair<int, int>> comparison;
+    
     int N;
     cin >> N;
+    
     int arr[100001] = {0,};
     for(int i = 0;i<N;i++){
         cin >> arr[i];
+        comparison.push_back(make_pair(arr[i], i));
     }
+    
+    vector<pair<int, int>> target;
+
     int M;
     cin >> M;
     int find_arr[100001] = {0,};
     for(int i = 0;i<M;i++){
         cin >> find_arr[i];
+        target.push_back(make_pair(find_arr[i], i));
     }
-    int tmp[100001] = {0,};
-    for(int i = 0;i<M;i++){
-        tmp[i] = find_arr[i];
-    }
+    sort(target.begin(), target.end());
+    
+    //
+//    for(vector<int>::iterator i = target.begin();i!= target.end();i++){
+//        if(binary_search(comparison.begin(), comparison.end(), *i)){
+//            cout<< 1 <<endl;
+//        }
+//        else{
+//            cout<< 0 <<endl;
+//        }
+//    }
+//
+    for (auto i = 0; i < N; i++){
+        cout<< binarySearch(target, comparison)[i].first <<endl;
 
-    sort(find_arr, find_arr+M);
-    
-    for(int i = 0;i<M;i++){
-        cout<< find_arr[i] <<" ";
+//        cout << comparison[i].first  << ", " <<  comparison[i].second << endl;
     }
-    cout<<endl;
-    int result = 0;
-    for(int i = 0;i<N;i++){
-        result = binarySearch(N, M, find_arr, arr[i]);
-        cout<< result<<endl;
-    }
-    
-    
+//
+//    sort(target[0].second, target[M].second);
+//
+//    for (int i = 0; i < target.size(); i++)
+//        cout << target[i].first  << ", " <<  target[i].second << endl;
+
 }
