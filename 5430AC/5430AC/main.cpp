@@ -12,32 +12,7 @@
 #include <algorithm>
 using namespace std;
 
-void print(deque<char> q){
-    unsigned long long q_size = q.size();
-    if(!q.empty())
-        cout<< "[";
-
-    for(int i = 0;i<q_size;i++){
-        if(q.front()!=' '){
-            
-            cout<< q.front();
-            q.pop_front();
-            if(q.empty()){
-                cout<< "]"<<endl;
-                break;
-            }
-            else{
-                cout<< ",";
-            }
-        }
-        if(q.empty()){
-            cout<< "error"<<endl;
-            break;
-        }
-    }
-
-}
-
+void print(deque<char> q);
 
 int main(void){
     int T; cin >> T;
@@ -58,8 +33,8 @@ int main(void){
         unsigned long long size_x = x.size();
         for(int i = 0;i<size_x;i++){
             arr_x[i] = x.at(i);
+        
         }
-
         for(int i = 0;i<size_x;i++){
             if(arr_x[i] != '[' && arr_x[i] != ']' && arr_x[i] != ','){
                 q.push_back(arr_x[i]);
@@ -68,14 +43,39 @@ int main(void){
 
         for(int i = 0;i<size;i++){
             if(arr[i]=='R'){
-                reverse(q.begin(), q.end());
+                if(!q.empty())
+                    reverse(q.begin(), q.end());
             }
             else if(arr[i]=='D'){
-                q.pop_front();
+                if(!q.empty())
+                    q.pop_front();
+                
             }
         }
         print(q);
         
     }
     
+}
+
+void print(deque<char> q){
+    unsigned long long q_size = q.size();
+    if(!q.empty())
+        cout<< "[";
+    else{
+        cout<< "error"<<endl;
+        return;
+    }
+    for(int i = 0;i<q_size;i++){
+        if(q.front()!=' '){
+            cout<< q.front();
+            q.pop_front();
+            if(q.empty()){
+                cout<< "]"<<endl;
+                break;
+            }
+            else
+                cout<< ",";
+        }
+    }
 }
