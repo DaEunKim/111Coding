@@ -13,26 +13,24 @@ int main(void){
     long long A, B, V;
     cin >> A >> B>> V;
     
-    long long left = 1;
-    long long right = V*A;
-    long long result = V*A;
-    
-    while (left<=right) {
-        long long mid = (left + right)/2;
-        long long total = 0;
-        
-        total += mid/(A-B);
-        
-        if(total < V){
-            if(total==mid)
-                result = mid;
-            left = mid+1;
-        }
-        else{
-            if(result >= mid)
-                result = mid;
-            right = mid-1;
-        }
-    }
-    cout<< result <<endl;
+//    long long left =0;
+//    long long right = (V-B-1)/(A-B)+1;// + (V-B)%(A-B);
+//    long long result = (V-B-1)/(A-B)+1;//+ (V-B)%(A-B);
+//
+//    while (left<=right) {
+//        long long mid = (left + right)/2;
+//        long long total = 0;
+//
+//        total = (mid-B-1)/(A-B)+1;// + (mid-B)%(A-B);
+//
+//        if(total < V){
+//            left = mid+1;
+//        }
+//        else{
+//            if(result > mid)
+//                result = mid;
+//            right = mid-1;
+//        }
+//    }
+    cout<< (V-B-1)/(A-B)+1 <<endl;
 }
