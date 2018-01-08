@@ -9,36 +9,40 @@
 #include <iostream>
 #include <string>
 #include <deque>
+#include <cstdio>
 #include <algorithm>
 using namespace std;
 
-void print(deque<char> q);
+void print(deque<int> q);
 
 int main(void){
+    ios::sync_with_stdio(false);
     int T; cin >> T;
     for(int z = 0;z<T;z++){
-        string p; cin >> p;
-        int n; cin >> n;
-        string x; cin >> x;
+        string p;
+        cin >> p;
+        int n;
+        scanf("%d", &n);
+        char gar;
+        int x[100001] = {0,};
+        
+        scanf("%c", &gar);
+        for(int i = 0;i<=n;i++){
+            scanf("%d", &x[i]);
+            scanf("%c", &gar);
+        }
+        scanf("%c",&gar);
         
         char arr[100001];
-        char arr_x[100001];
+        deque<int> q;
         
-        deque<char> q;
-
         unsigned long long size = p.size();
         for(int i = 0;i<size;i++){
             arr[i] = p.at(i);
         }
-        unsigned long long size_x = x.size();
-        for(int i = 0;i<size_x;i++){
-            arr_x[i] = x.at(i);
-        
-        }
-        for(int i = 0;i<size_x;i++){
-            if(arr_x[i] != '[' && arr_x[i] != ']' && arr_x[i] != ','){
-                q.push_back(arr_x[i]);
-            }
+
+        for(int i = 1;i<=n;i++){
+            q.push_back(x[i]);
         }
 
         for(int i = 0;i<size;i++){
@@ -49,33 +53,30 @@ int main(void){
             else if(arr[i]=='D'){
                 if(!q.empty())
                     q.pop_front();
-                
             }
         }
         print(q);
-        
     }
-    
 }
 
-void print(deque<char> q){
+void print(deque<int> q){
     unsigned long long q_size = q.size();
     if(!q.empty())
-        cout<< "[";
+        printf("[");
     else{
-        cout<< "error"<<endl;
+        printf("error\n");
         return;
     }
     for(int i = 0;i<q_size;i++){
         if(q.front()!=' '){
-            cout<< q.front();
+            printf("%d",q.front());
             q.pop_front();
             if(q.empty()){
-                cout<< "]"<<endl;
+                printf("]\n");
                 break;
             }
             else
-                cout<< ",";
+                printf(",");
         }
     }
 }
