@@ -44,7 +44,7 @@ int main(void){
         for(int i = 1;i<=n;i++){
             q.push_back(x[i]);
         }
-
+        
         for(int i = 0;i<size;i++){
             if(arr[i]=='R'){
                 if(!q.empty())
@@ -55,7 +55,7 @@ int main(void){
                     q.pop_front();
             }
         }
-        print(q);
+//        print(q);
     }
 }
 
