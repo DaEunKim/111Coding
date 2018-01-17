@@ -13,8 +13,6 @@
 #include <algorithm>
 using namespace std;
 
-void print(deque<int> q);
-
 int main(void){
     ios::sync_with_stdio(false);
     int T; cin >> T;
@@ -35,6 +33,7 @@ int main(void){
         
         char arr[100001];
         deque<int> q;
+        deque<int> q_reverse;
         
         unsigned long long size = p.size();
         for(int i = 0;i<size;i++){
@@ -45,38 +44,44 @@ int main(void){
             q.push_back(x[i]);
         }
         
+        bool flag = true;
+        bool hasError = false;
         for(int i = 0;i<size;i++){
             if(arr[i]=='R'){
-                if(!q.empty())
-                    reverse(q.begin(), q.end());
+                flag = !flag;
             }
-            else if(arr[i]=='D'){
-                if(!q.empty())
+            else{
+                if(q.empty()){
+                    hasError = true;
+                    break;
+                }
+                else if(flag)
                     q.pop_front();
+                else
+                    q.pop_back();
             }
         }
-//        print(q);
+        if(hasError) puts("error");
+        else{
+            unsigned long long size = q.size();
+            if(flag){
+                cout<<"[";
+                for(int i = 0;i<size;i++){
+                    cout<< q[i];
+                    if(i!=size-1) cout<<",";
+                }
+                cout<< "]";
+            }
+            else{
+                cout<<"[";
+                for(unsigned long long i = size-1; i>=0; i--){
+                    cout<< q[i];
+                    if(i!=0) cout<<",";
+                }
+                cout<< "]";
+            }
+            puts("");
+        }
     }
 }
 
-void print(deque<int> q){
-    unsigned long long q_size = q.size();
-    if(!q.empty())
-        printf("[");
-    else{
-        printf("error\n");
-        return;
-    }
-    for(int i = 0;i<q_size;i++){
-        if(q.front()!=' '){
-            printf("%d",q.front());
-            q.pop_front();
-            if(q.empty()){
-                printf("]\n");
-                break;
-            }
-            else
-                printf(",");
-        }
-    }
-}
