@@ -9,20 +9,21 @@
 #include <iostream>
 #include <string>
 #include <deque>
+#include <queue>
 #include <cstdio>
-#include <algorithm>
 using namespace std;
 
+int x[1000001] = {0,};
+
 int main(void){
-    ios::sync_with_stdio(false);
+//    ios::sync_with_stdio(false);
     int T; cin >> T;
     for(int z = 0;z<T;z++){
-        string p;
+        string p;//RDD
         cin >> p;
         int n;
-        scanf("%d", &n);
-        char gar;
-        int x[100001] = {0,};
+        scanf("%d", &n);//4
+        char gar;//[ , ]
         
         scanf("%c", &gar);
         for(int i = 0;i<=n;i++){
@@ -31,12 +32,11 @@ int main(void){
         }
         scanf("%c",&gar);
         
-        char arr[100001];
+        char arr[100002];
         deque<int> q;
-        deque<int> q_reverse;
         
-        unsigned long long size = p.size();
-        for(int i = 0;i<size;i++){
+        unsigned long long string_size = p.size();
+        for(int i = 0;i<string_size;i++){
             arr[i] = p.at(i);
         }
 
@@ -46,7 +46,7 @@ int main(void){
         
         bool flag = true;
         bool hasError = false;
-        for(int i = 0;i<size;i++){
+        for(int i = 0;i<string_size;i++){
             if(arr[i]=='R'){
                 flag = !flag;
             }
@@ -61,9 +61,10 @@ int main(void){
                     q.pop_back();
             }
         }
+        
         if(hasError) puts("error");
         else{
-            unsigned long long size = q.size();
+            int size = q.size();
             if(flag){
                 cout<<"[";
                 for(int i = 0;i<size;i++){
@@ -74,7 +75,7 @@ int main(void){
             }
             else{
                 cout<<"[";
-                for(unsigned long long i = size-1; i>=0; i--){
+                for(int i = size-1; i>=0; i--){
                     cout<< q[i];
                     if(i!=0) cout<<",";
                 }
