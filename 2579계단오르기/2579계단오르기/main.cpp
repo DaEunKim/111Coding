@@ -7,32 +7,32 @@
 //
 
 #include <iostream>
+#include <algorithm>
 using namespace std;
 
-int arr[10001] = {0,};
+int dp[10001] = {0,};
 
-int dp(int index, int n){
-    int max = 0;
-    if(index == 1)
-        return arr[index];
-    if(index==2)
-        return arr[index];
-    if(index>max){
-        max = index;
+int func(int *score, int a){
+    dp[0] = score[0];
+    dp[1] = score[1];
+    dp[2] = score[1]+score[2];
+    
+    for(int i = 3;i<=a;i++){
+        dp[i] = max(dp[i-3] + score[i-1] , dp[i-2]) + score[i];
         
     }
-    max += dp(index, n) + dp(index+1, n);
-    max += dp(max, n-1);
+    return dp[a];
     
-    return max;
 }
 
 int main(void){
     int n;
     cin >> n;
-    int stairs[10001] = {0, };
-    for(int i = 0;i<n;i++){
-        cin >> stairs[i];
+    int score[10001] = {0, };
+    
+    for(int i = 1;i<=n;i++){
+        cin >> score[i];
     }
+    cout<< func(score, n)<<endl;
     
 }
