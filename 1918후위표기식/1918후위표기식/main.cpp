@@ -11,81 +11,65 @@
 #include <string>
 using namespace std;
 
-void print_postfix(stack<char> conn){
-    stack<char> postfix;
-    unsigned long size = conn.size();
-    for(int i = 0;i<size;i++){
-        postfix.push(conn.top());
-        conn.pop();
+int precedence(char op){
+    switch (op) {
+        case '(': case ')': return 0;
+        case '+': case '-': return 1;
+        case '*': case '/': return 2;
     }
-    
-    unsigned long postfix_size = postfix.size();
-    for(int i =0;i<postfix_size;i++){
-        cout<< postfix.top();
-        postfix.pop();
-    }
-    cout<<endl;
+    return -1;
 }
-
 
 int main(void){
     string s;
     cin >> s;
+    
+    stack<char> postfix;
+    while (!postfix.empty()) {
+        postfix.pop();
+    }
+    unsigned long size = s.size();
+    char c, e=' ';
+    for(int i = 0;i<size;i++){
+        c = s.at(i);
+        if(c>='A' && c<='Z'){
+            cout<< c;
+        }
+        else if(c=='('){
+            postfix.push(c);
+        }
+        else if(c==')'){
+            while (!postfix.empty()) {
+                if(postfix.top() == '('){
+                    postfix.pop();
+                    break;
+                }else{
+                    cout<< postfix.top();
+                    postfix.pop();
+                }
+            }
+        }
+        else if(c=='+' || c=='-' || c=='*' || c=='/'){
+            if(!postfix.empty()){
+                e = postfix.top();
+            }
+            else{
+                e = '(';
+            }
+            while (!postfix.empty() && precedence(e) >= precedence(c)) {
+                cout<<e;
+                postfix.pop();
+                if(!postfix.empty())
+                    e = postfix.top();
+            }
+            postfix.push(c);
+        }
+    }
+    
+    while (!postfix.empty()) {
+        e = postfix.top();
+        cout<< e;
+        postfix.pop();
+    }
 
-    stack<char> sign;
-    stack<char> alphabet;
-    
-    stack<char> all;
-    //()일때 먼저 계산
-    
-//    all.push(')');
-    for(int i = 0;i<s.size();i++){
-        all.push(s.at(i));
-    }
-    unsigned long size = all.size();
-    
-    while (all.top()=='(') {
-        if(all.top()==')'){
-            break;
-        }
-        if(all.top()=='+' || all.top()=='*' || all.top()=='-' || all.top()=='/'){
-            
-        }
-    }
-    for(int i =0;i<size;i++){
-        if(all.top()=='+' || all.top()=='*' || all.top()=='-' || all.top()=='/'){
-            all.push(all.top());
-            
-            print_postfix(all);
-
-        }
-    }
-    
-//    all.push('(');
-    
-    
-//
-//    stack<char> tmp;
-//    unsigned long all_size = all.size();
-//    for(int i = 0;i<all_size;i++){
-//        if(all.top()=='('){
-//            while (all.top()!=')') {
-//                all.pop();
-//                tmp.push(all.top());
-//            }
-//        }
-////        else{
-////            alphabet.push(all.top());
-////            all.pop();
-////        }
-////
-//    }
-//
-//    unsigned long tmp_size = tmp.size();
-//    for(int i = 0;i<tmp_size;i++){
-//        cout<< tmp.top();
-//        tmp.pop();
-//    }
-//    cout<<endl;
-    
 }
