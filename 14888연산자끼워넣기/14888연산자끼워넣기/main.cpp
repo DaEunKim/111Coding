@@ -18,27 +18,6 @@ int numbers[101]= {0, };
 int max_value = -1000000000;
 int min_value = 1000000000;
 
-void dfs(int cur, int idx, int num, int size);
-
-int main(int argc, const char * argv[]) {
-    cin >> n;
-    for(int i = 0;i<n;i++){
-        cin >> numbers[i];
-    }
-    int idx = 0;
-    for(int i = 0;i<4;i++){
-        int cnt;
-        cin >> cnt;
-        for(int j = 0;j<cnt;j++){
-            opt[idx++] = i+1;
-        }
-    }
-    
-    dfs(0, 1, numbers[0], 0);
-    cout<< max_value <<endl;
-    cout<< min_value <<endl;
-}
-
 void dfs(int cur, int idx, int num, int size){
     int result = 0;
     
@@ -74,4 +53,21 @@ void dfs(int cur, int idx, int num, int size){
     //backtracking
     vis[cur] = false;
 }
-
+int main(int argc, const char * argv[]) {
+    cin >> n;
+    for(int i = 0;i<n;i++){
+        cin >> numbers[i];
+    }
+    int idx = 0;
+    for(int i = 0;i<4;i++){
+        int cnt;
+        cin >> cnt;
+        for(int j = 0;j<cnt;j++){
+            opt[idx++] = i+1;
+        }
+    }
+    
+    dfs(0, 1, numbers[0], 0);
+    cout<< max_value <<endl;
+    cout<< min_value <<endl;
+}
