@@ -7,109 +7,75 @@
 //
 
 #include <iostream>
-#include <cstdio>
+#include <queue>
+#include <algorithm>
 using namespace std;
 
-bool isCheck(int arr[][1000], int x, int y, int sizeX, int sizeY){
-    if(x <0 || y<0)
-        return false;
-    if(x >= sizeX || y >= sizeY)
-        return false;
-    if (arr[y][x] == -1 || arr[y][x] == 1)
-        return false;
-    return true;
-}
+int M, N;
+int arr[1001][1001] = {0,};
+int vis[1001][1001] = {0, };
+int cnt = 0;
+queue<pair<int, int>> q;
 
-bool allRipen(int arr[][1000], int x, int y){
-    bool flag = true;
+void bfs(int a, int b){
+    q.push(make_pair(a, b));
     
-    for(int i = 0;i<y;i++){
-        for(int j = 0;j<x;j++){
-            if(arr[i][j]==0)
-                flag = false;
-            else if (arr[i][j]==2) {
-                arr[i][j] = 1;
+    while (!q.empty()) {
+        int first = q.front().first;
+        int second = q.front().second;
+        q.pop();
+        
+        if(first == 0 && second == 0)
+            break;
+        
+        int dx[] = {1, -1, 0, 0};
+        int dy[] = {0, 0, 1, -1};
+        for(int i = 0;i<4;i++){
+            int x = first + dx[i];
+            int y = second + dy[i];
+            
+            if(x<0 || y<0 || x>=N || y>=M)
+                continue;
+            if(!vis[x][y] && arr[x][y] == 0){
+                q.push(make_pair(x, y));
+                vis[x][y] = vis[first][second] + 1;
             }
+            if(arr[x][y] == -1){
+                vis[x][y] = 1;
+                continue;
+            }
+            
         }
     }
-    
-    return flag;
-}
-
-int check_arr(int arr[][1000], int x, int y){
-    bool flag = true;
-    
-    for(int i =0;i<y;i++){
-        for(int j = 0;j<x;j++){
-            if(arr[i][j]==1){
-                
-                if(isCheck(arr, j+1, i, x, y)==true){
-                    arr[i][j+1] = 2;
-                    flag = false;
-                }
-                if(isCheck(arr, j, i+1, x, y)==true){
-                    arr[i+1][j] = 2;
-                    flag = false;
-                }
-                if(isCheck(arr, j-1, i, x, y)==true){
-                    arr[i][j-1] = 2;
-                    flag = false;
-                }
-                if(isCheck(arr, j, i-1, x, y)==true){
-                    arr[i-1][j] = 2;
-                    flag = false;
-                }
-            }
-        }
-    }
-    
-    
-    if(allRipen(arr, x, y))
-        return 1;
-    if(flag)
-        return -1;
-    return 0;
 }
 
 int main(void){
-    int x, y;
-    cin >> x >> y;
+    cin >> M >> N;
     
-    int arr[1000][1000] = {0, };
-    
-    for(int i = 0;i<y; i++){
-        for(int j = 0;j<x; j++){
-            scanf("%d", &arr[i][j]);
+    for(int i = 0;i<N;i++){
+        for(int j = 0;j<M;j++){
+            cin >> arr[i][j];
         }
     }
     
-    if(allRipen(arr, x, y)){
-        printf("%d\n", 0);
-        return 0;
+    for(int i = 0;i<N;i++){
+        for(int j = 0;j<M;j++){
+            if(arr[i][j]==1)
+                bfs(i, j);
+        }
     }
 
-    int cnt = 0;
-    while (1) {
-        cnt++;
-        int ans = check_arr(arr, x, y);
-        
-        if (ans == 1) {
-            break;
+    bool flag = true;
+    for(int i = 0;i<N;i++){
+        for(int j = 0;j<M;j++){
+            if(vis[i][j] == 0)
+                flag = false;
+            cout<< vis[i][j] <<" ";
         }
-        else if (ans ==-1){
-            printf("%d\n", -1);
-            return 0;
-        }
-        
-//        for(int i =0;i<y;i++){
-//            for(int j = 0;j<x;j++){
-//                printf("%2d ", arr[i][j]);
-//                
-//            }
-//            puts("");
-//        }
-//        puts("");
+        cout<<endl;
     }
-    printf("%d\n", cnt);
-
+    if(flag == false)
+        cout<< "-1"<<endl;
+    else
+        cout<< vis[0][0]<<endl;
 }
